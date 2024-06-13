@@ -24,3 +24,10 @@ def register():
         
         return redirect(url_for('home'))
     return render_template('register.html')
+
+@app.route('/booking', methods=['GET', 'POST'])
+def booking():
+    if request.method == 'POST':
+        
+        return redirect(url_for('home'))
+    return render_template('booking.html')
