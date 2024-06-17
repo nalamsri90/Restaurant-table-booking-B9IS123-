@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Welcome to our Desi Dhaba Restaurant</h2>
+    <div class="form-container">
+        <h3>Table Bookings</h3>
+        <ul>
+            {% for booking in bookings %}
+                <li>
+                    <strong>Name:</strong> {{ booking.name }}<br>
+                    <strong>Date:</strong> {{ booking.date }}<br>
+                    <strong>Time:</strong> {{ booking.time }}<br>
+                    <strong>Guests:</strong> {{ booking.guests }}<br>
+                    <strong>Dish:</strong> {{ booking.dish }}<br>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
