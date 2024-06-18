@@ -28,7 +28,11 @@ def register():
 @app.route('/booking', methods=['GET', 'POST'])
 def booking():
     if request.method == 'POST':
-        
+        name = request.form['name']
+        date = request.form['date']
+        time = request.form['time']
+        guests = request.form['guests']
+        bookings.append({'name': name, 'date': date, 'time': time, 'guests': guests})
         return redirect(url_for('home'))
     return render_template('booking.html')
 
