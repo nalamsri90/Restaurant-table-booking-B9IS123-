@@ -32,7 +32,7 @@ def booking():
         date = request.form['date']
         time = request.form['time']
         guests = request.form['guests']
-        bookings.append({'name': name, 'date': date, 'time': time, 'guests': guests})
+        booking.append({'name': name, 'date': date, 'time': time, 'guests': guests})
         return redirect(url_for('home'))
     return render_template('booking.html')
 
