@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, url_for, redirect, request, flash
+from flask import Flask, render_template, url_for, redirect, request, flash, session
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -17,7 +17,16 @@ def menu():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
         
+        user = next((user for user in users if user['username'] == username and user['password'] == password), None)
+        if user:
+            session['username'] = username
+            flash('Logged in successfully!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid username or password', 'error')
         return redirect(url_for('home'))
     return render_template('login.html')
 
