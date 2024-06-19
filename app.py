@@ -2,6 +2,7 @@
 from flask import Flask, render_template, url_for, redirect, request, flash
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 
 bookings = []
 users = []
