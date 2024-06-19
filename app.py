@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash
 
 app = Flask(__name__)
 
@@ -29,6 +29,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         users.append({'username': username, 'fullname': fullname, 'mobile': mobile, 'email': email, 'password': password})
+        flash('Registered successfully!', 'success')
         return redirect(url_for('home'))
     return render_template('register.html')
 
