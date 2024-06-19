@@ -111,8 +111,12 @@
             <li><a href="{{ url_for('booking') }}">Book a Table</a></li>
         </ul>
         <ul class="nav-right">
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-            <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% if 'username' in session %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
         </ul>
     </nav>
     <div class="content">
