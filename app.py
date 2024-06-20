@@ -27,7 +27,7 @@ def login():
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password', 'error')
-        return redirect(url_for('home'))
+            return redirect(url_for('home'))
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -50,6 +50,7 @@ def booking():
         date = request.form['date']
         time = request.form['time']
         guests = request.form['guests']
+        dish = request.form['dish']
         bookings.append({'name': name, 'date': date, 'time': time, 'guests': guests})
         return redirect(url_for('home'))
     return render_template('booking.html')
