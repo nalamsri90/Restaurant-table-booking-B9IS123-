@@ -55,6 +55,11 @@ def booking():
         return redirect(url_for('home'))
     return render_template('booking.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('Logged out successfully!', 'success')
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)
