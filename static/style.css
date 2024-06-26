@@ -1,10 +1,10 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  color: white;
+  font-family: Arial, sans-serif;
+  color: white; 
 }
 
 nav {
-  background-color: rgba(0, 0, 0, 0.804);
+  background-color: rgba(0, 0, 0, 0.804); 
   border-radius: 10px;
   color: white;
   padding: 1em;
@@ -20,8 +20,15 @@ nav ul {
   display: flex;
 }
 
+nav ul.nav-left {
+  justify-content: flex-start;
+}
+
+nav ul.nav-right {
+  justify-content: flex-end;
+}
+
 nav ul li {
-  display: inline;
   margin-right: 1em;
 }
 
@@ -30,8 +37,16 @@ nav ul li a {
   text-decoration: none;
 }
 
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
 .content {
   padding: 2em;
+  background-color: rgba(0, 0, 0, 0.801); 
+  border-radius: 10px; 
+  max-width: 800px;
+  margin: auto; 
 }
 
 form {
@@ -45,6 +60,7 @@ form label {
 
 form input[type="text"],
 form input[type="password"],
+form input[type="email"],
 form input[type="date"],
 form input[type="time"],
 form input[type="number"] {
@@ -59,4 +75,62 @@ form input[type="submit"] {
   color: white;
   border: none;
   cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 1em;
+}
+
+ul li strong {
+  display: block;
+}
+
+
+.menu-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+}
+
+.menu-container h2 {
+  color: #FFD700; 
+  margin-top: 0;
+}
+
+.menu-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  width: 30%;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+}
+
+.menu-item img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.menu-item h3 {
+  margin-top: 10px;
+  color: #FFD700;
+}
+
+.menu-item p {
+  margin: 5px 0;
 }
