@@ -63,6 +63,7 @@ def booking():
         guests = request.form['guests']
         dish = request.form['dish']
         bookings.append({'name': name, 'date': date, 'time': time, 'guests': guests})
+        flash('Table booked successfully!', 'success')
         return redirect(url_for('home'))
     return render_template('booking.html')
 
