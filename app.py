@@ -55,6 +55,7 @@ def register():
     return render_template('register.html')
 
 @app.route('/booking', methods=['GET', 'POST'])
+@login_required
 def booking():
     if request.method == 'POST':
         name = request.form['name']
