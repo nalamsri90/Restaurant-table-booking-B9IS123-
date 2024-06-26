@@ -34,7 +34,8 @@ def login():
         if user:
             session['username'] = username
             flash('Logged in successfully!', 'success')
-            return redirect(url_for('home'))
+            next_page = request.args.get('next')
+            return redirect(next_page or url_for('home'))
         else:
             flash('Invalid username or password', 'error')
             return redirect(url_for('home'))
