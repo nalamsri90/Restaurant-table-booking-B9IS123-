@@ -140,8 +140,9 @@ ul li strong {
   height: 50px;       
   border-radius: 50%; 
   border: none;       
-  background-color: black; 
-  color: white;       
+  background-color: #4CAF50; 
+  color: white;
+  text-align: center;       
   font-size: 16px;   
   margin: 4px 2px;    
 }
