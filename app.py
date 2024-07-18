@@ -37,11 +37,13 @@ def login():
         password = request.form['password']
         
         user = next((user for user in users if user['username'] == username and user['password'] == password), None)
+        user = users_collection.find_one({'username':username})
         if user:
             session['username'] = username
-            flash('Logged in successfully!', 'success')
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('home'))
+            if user['password'] == password:
+                flash('Logged in successfully!', 'success')
+                next_page = request.args.get('next')
+                return redirect(next_page or url_for('home'))
         else:
             flash('Invalid username or password', 'error')
             return redirect(url_for('home'))
