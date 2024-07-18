@@ -1,8 +1,14 @@
 from functools import wraps
 from flask import Flask, render_template, url_for, redirect, request, flash, session
+from pymongo import MongoClient
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
+
+client = MongoClient('mongodb://localhost:27017')
+db = client['desi_dhaba']
+users_collection = db['users']
+bookings_collection = db['bookings']
 
 bookings = []
 users = []
