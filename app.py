@@ -57,7 +57,9 @@ def register():
         mobile = request.form['mobile']
         email = request.form['email']
         password = request.form['password']
+        user_data = {'username': username, 'fullname': fullname, 'mobile': mobile, 'email': email, 'password': password}
         users.append({'username': username, 'fullname': fullname, 'mobile': mobile, 'email': email, 'password': password})
+        users_collection.insert_one(user_data)
         flash('Registered successfully!', 'success')
         return redirect(url_for('home'))
     return render_template('register.html')
