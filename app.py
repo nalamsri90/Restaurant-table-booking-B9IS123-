@@ -72,8 +72,9 @@ def booking():
         date = request.form['date']
         time = request.form['time']
         guests = request.form['guests']
-        dish = request.form['dish']
-        bookings.append({'name': name, 'date': date, 'time': time, 'guests': guests})
+        dishes = request.form['dishes']
+        booking_data = {'name': name, 'date': date, 'time': time, 'guests': guests, 'dishes': dishes}
+        bookings_collection.insert_one(booking_data)
         flash('Table booked successfully!', 'success')
         return redirect(url_for('home'))
     return render_template('booking.html')
