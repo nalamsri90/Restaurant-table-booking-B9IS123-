@@ -1,12 +1,14 @@
 from functools import wraps
 from flask import Flask, render_template, url_for, redirect, request, flash, session
 from pymongo import MongoClient
+import base64
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 client = MongoClient('mongodb://localhost:27017')
 db = client['desi_dhaba']
+menu_collection = db['menu']
 users_collection = db['users']
 bookings_collection = db['bookings']
 
@@ -28,7 +30,21 @@ def home():
 
 @app.route('/menu')
 def menu():
-    return render_template('menu.html')
+    starters = menu_collection.find({'category': 'starter'})
+    mains = menu_collection.find({'category': 'main course'})
+    desserts = menu_collection.find({'category': 'dessert'})
+    return render_template('menu.html', starters=starters, mains=mains, desserts=desserts)
+
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('q')
+    if query:
+        item = menu_collection.find_one({'name': {'$regex': query, '$options': 'i'}})
+        if item:
+            return render_template('menu.html', search_result=item)
+        else:
+            return render_template('menu.html', search_result='not_found')
+    return redirect(url_for('menu'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -78,6 +94,10 @@ def booking():
         flash('Table booked successfully!', 'success')
         return redirect(url_for('home'))
     return render_template('booking.html')
+
+@app.template_filter('b64encode')
+def b64encode_filter(data):
+    return base64.b64encode(data).decode('utf-8')
 
 @app.route('/logout')
 def logout():

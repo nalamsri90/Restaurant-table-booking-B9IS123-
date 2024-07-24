@@ -23,16 +23,10 @@
         <input type="number" id="guests" name="guests" min="1" ><br><br>
 
         <label for="dishes">Dishes to be Ready:</label>
-        <textarea id="dishes" name="dishes" readonly></textarea>
+        <textarea id="dishes" name="dishes"></textarea>
 
         <button type="submit">Book Now</button>
     </form>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
-        document.getElementById('dishes').value = selectedItems.join(', ');
-    });
-</script>
 {% endblock %}
