@@ -1,120 +1,71 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="menu-container">
-    <h2>Starters</h2>
-    <div class="menu-section">
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images starter1.jpg') }}" alt="Starter 1">
-            <h3>Chilli Paneer</h3>
-            <p>Spicy and tangy Indo-Chinese appetizer made with paneer (Indian cottage cheese), bell peppers, and a flavorful sauce.</p>
-            <button class="add-to-list" data-item="Starter 1">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images starter2.jpg') }}" alt="Starter 2">
-            <h3>Veg Manchurian</h3>
-            <p>Deep-fried vegetable balls tossed in a tangy and spicy soy-based sauce, popular in Indo-Chinese cuisine.</p>
-            <button class="add-to-list" data-item="Starter 2">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images starter3.jpg') }}" alt="Starter 3">
-            <h3>Chilli Chicken</h3>
-            <p>A spicy and savory Indo-Chinese dish featuring marinated chicken pieces stir-fried with bell peppers, onions, and chilies.</p>
-            <button class="add-to-list" data-item="Starter 3">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images starter4.jpg') }}" alt="Starter 4">
-            <h3>Mutton Fry</h3>
-            <p>A flavorful and spicy South Indian dish made with tender mutton pieces cooked with aromatic spices and herbs.</p>
-            <button class="add-to-list" data-item="Starter 4">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images starter5.jpg') }}" alt="Starter 5">
-            <h3>Prawn Fry (Royyala Vepudu)</h3>
-            <p>A flavorful and spicy South Indian dish made with tender mutton pieces cooked with aromatic spices and herbs.</p>
-            <button class="add-to-list" data-item="Starter 5">Add to List</button>
-        </div>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<h1>Menu</h1>
+<form action="{{ url_for('search') }}" method="get">
+    <input type="text" name="q" placeholder="Search by name">
+    <button type="submit">Search</button>
+</form>
+
+{% if search_result %}
+        {% if search_result == 'not_found' %}
+            <p>Item not found</p>
+        {% else %}
+            <div class="category-box">
+                <div class="menu-item">
+                    <img src="data:image/jpeg;base64,{{ search_result.image | b64encode }}" alt="{{ search_result.name }}">
+                    <div>
+                        <h3>{{ search_result.name }}</h3>
+                        <p>{{ search_result.description }}</p>
+                        <p>Price:{{ search_result.price }}</p>
+                    </div>
+                    <button type="button" onclick="addToBooking('{{ search_result.name }}')">Add to booking</button>
+                </div>
+            </div>
+    {% endif %}
+{% else %}
+    <div class="category-box">
+        <h2>Starters</h2>
+        {% for item in starters %}
+            <div class="menu-item">
+                <img src="data:image/jpeg;base64,{{ item.image | b64encode }}" alt="{{ item.name }}">
+                <div>
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <p>Price:{{ item.price }}</p>
+                </div>
+                <button type="button" onclick="addToBooking('{{ item.name }}')">Add to booking</button>
+            </div>
+        {% endfor %}
     </div>
-
-    <h2>Main Course</h2>
-    <div class="menu-section">
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images main1.jpg') }}" alt="Main Course 1">
-            <h3>Paneer Butter Masala</h3>
-            <p>A rich and creamy North Indian curry made with paneer cubes simmered in a buttery tomato sauce infused with aromatic spices.</p>
-            <button class="add-to-list" data-item="Main Course 1">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images main2.jpg') }}" alt="Main Course 2">
-            <h3>Gutti Vankaya Curry (Bringal)</h3>
-            <p>A traditional Andhra dish featuring stuffed eggplants cooked in a spicy and tangy gravy.</p>
-            <button class="add-to-list" data-item="Main Course 2">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images main3.jpg') }}" alt="Main Course 3">
-            <h3>Andhra Chicken Curry</h3>
-            <p>A fiery and flavorful South Indian chicken curry made with a blend of regional spices and a rich gravy.</p>
-            <button class="add-to-list" data-item="Main Course 3">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images main4.jpg') }}" alt="Main Course 4">
-            <h3>Gongura Lamb Curry</h3>
-            <p>A tangy and spicy lamb curry from Andhra Pradesh, cooked with gongura (sorrel) leaves and a medley of spices.</p>
-            <button class="add-to-list" data-item="Main Course 4">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images main5.jpg') }}" alt="Main Course 5">
-            <h3>Andhra Lamb Curry</h3>
-            <p>A robust and spicy lamb curry from Andhra Pradesh, known for its rich flavors and use of local spices.</p>
-            <button class="add-to-list" data-item="Main Course 5">Add to List</button>
-        </div>
+    <div class="category-box">
+        <h2>Main Course</h2>
+        {% for item in mains %}
+            <div class="menu-item">
+                <img src="data:image/jpeg;base64,{{ item.image | b64encode }}" alt="{{ item.name }}">
+                <div>
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <p>Price:{{ item.price }}</p>
+                </div>
+                <button type="button" onclick="addToBooking('{{ item.name }}')">Add to booking</button>
+            </div>
+        {% endfor %}
     </div>
-
-    <h2>Desserts</h2>
-    <div class="menu-section">
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images dessert1.jpg') }}" alt="Dessert 1">
-            <h3>Rasamalai</h3>
-            <p>Soft paneer dumplings soaked in a creamy, cardamom-flavored milk syrup, often garnished with nuts.</p>
-            <button class="add-to-list" data-item="Dessert 1">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images dessert2.jpg') }}" alt="Dessert 2">
-            <h3>Gulab jamun (2pcs) & scoop of ice cream</h3>
-            <p>Deep-fried dough balls soaked in a fragrant sugar syrup flavored with cardamom and rosewater.</p>
-            <button class="add-to-list" data-item="Dessert 2">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images dessert3.jpg') }}" alt="Dessert 3">
-            <h3>Semiya payasam</h3>
-            <p>A sweet South Indian dessert made with vermicelli cooked in milk, flavored with cardamom, and garnished with nuts and raisins.</p>
-            <button class="add-to-list" data-item="Dessert 3">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images dessert4.jpg') }}" alt="Dessert 4">
-            <h3>Jilebi</h3>
-            <p>Crispy, spiral-shaped sweets made from fermented batter, deep-fried, and soaked in saffron-infused sugar syrup.</p>
-            <button class="add-to-list" data-item="Dessert 4">Add to List</button>
-        </div>
-        <div class="menu-item">
-            <img src="{{ url_for('static', filename='images dessert5.jpg') }}" alt="Dessert 5">
-            <h3>Mango Lassi</h3>
-            <p>A refreshing and creamy yogurt-based drink blended with ripe mangoes, sugar, and a hint of cardamom.</p>
-            <button class="add-to-list" data-item="Dessert 5">Add to List</button>
-        </div>
+    <div class="category-box">
+        <h2>Desserts</h2>
+        {% for item in desserts %}
+            <div class="menu-item">
+                <img src="data:image/jpeg;base64,{{ item.image | b64encode }}" alt="{{ item.name }}">
+                <div>
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <p>Price:{{ item.price }}</p>
+                </div>
+                <button type="button" onclick="addToBooking('{{ item.name }}')">Add to booking</button>
+            </div>
+        {% endfor %}
     </div>
-</div>
-
-<script>
-    document.querySelectorAll('.add-to-list').forEach(button => {
-        button.addEventListener('click', function() {
-            const itemName = this.getAttribute('data-item');
-            let selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
-            selectedItems.push(itemName);
-            localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
-            alert(itemName + ' has been added to your booking list.');
-        });
-    });
-</script>
-
+{% endif %}
 {% endblock %}
