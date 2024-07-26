@@ -29,4 +29,18 @@
     </form>
 </div>
 
+<script>
+    window.onload = function() {
+        let items = localStorage.getItem('bookingItems');
+        if (items) {
+            items = JSON.parse(items);
+            document.getElementById('dishes').value = items.join(', ');
+        }
+    };
+
+    
+    document.querySelector('form').onsubmit = function() {
+        localStorage.removeItem('bookingItems');
+    };
+</script>
 {% endblock %}

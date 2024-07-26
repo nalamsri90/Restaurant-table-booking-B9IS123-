@@ -68,4 +68,18 @@
         {% endfor %}
     </div>
 {% endif %}
+<script>
+    function addToBooking(itemName) {
+        // Store the item in localStorage
+        let items = localStorage.getItem('bookingItems');
+        if (items) {
+            items = JSON.parse(items);
+        } else {
+            items = [];
+        }
+        items.push(itemName);
+        localStorage.setItem('bookingItems', JSON.stringify(items));
+        alert(itemName + " added to booking list!");
+    }
+</script>
 {% endblock %}
